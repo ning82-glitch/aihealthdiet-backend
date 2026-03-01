@@ -1,6 +1,6 @@
 package com.aihealthdiet.controller;
 
-import com.aihealthdiet.model.User;
+import com.aihealthdiet.entity.User;
 import com.aihealthdiet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,7 @@ public class UserController {
 
     @GetMapping("/{username}")
     public User getUser(@PathVariable String username) {
-        return userService.findByUsername(username);
+        return userService.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("用户不存在")); // 或其他错误处理
     }
 }

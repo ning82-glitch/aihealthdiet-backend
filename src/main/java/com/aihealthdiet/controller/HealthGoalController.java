@@ -1,6 +1,6 @@
 package com.aihealthdiet.controller;
 
-import com.aihealthdiet.model.HealthGoal;
+import com.aihealthdiet.entity.HealthGoal;
 import com.aihealthdiet.repository.HealthGoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
