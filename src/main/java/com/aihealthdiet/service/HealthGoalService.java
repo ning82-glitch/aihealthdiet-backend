@@ -7,14 +7,11 @@ import com.aihealthdiet.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import static java.util.Map.entry;
 
 @Service
 public class HealthGoalService {
@@ -81,17 +78,16 @@ public class HealthGoalService {
             status = "超前";
         }
 
-        return Map.ofEntries(
-                entry("hasGoal", true),
-                entry("goalType", goal.getGoalType()),
-                entry("currentWeight", currentWeight),
-                entry("targetWeight", targetWeight),
-                entry("initialWeight", initialWeight),
-                entry("progressPercentage", Math.min(100, Math.max(0, progressPercentage))),
-                entry("daysPassed", daysPassed),
-                entry("totalDays", totalDays),
-                entry("status", status),
-                entry("weeklyTarget", goal.getWeeklyTarget())
+        return Map.of(
+                "hasGoal", true,
+                "goalType", goal.getGoalType(),
+                "currentWeight", currentWeight,
+                "targetWeight", targetWeight,
+                "initialWeight", initialWeight,
+                "progressPercentage", Math.min(100, Math.max(0, progressPercentage)),
+                "daysPassed", daysPassed,
+                "totalDays", totalDays,
+                "status", status
         );
     }
 }

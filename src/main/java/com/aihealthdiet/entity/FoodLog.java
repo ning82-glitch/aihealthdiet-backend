@@ -2,7 +2,6 @@ package com.aihealthdiet.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +13,7 @@ public class FoodLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(nullable = false)
     private String foodName;
 
@@ -22,8 +22,6 @@ public class FoodLog {
 
     private String nutritionResult;
 
-    @Setter
-    private Long userId;
 
     private Double calories; // 卡路里
     private Double protein;  // 蛋白质(g)
@@ -48,4 +46,8 @@ public class FoodLog {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Long getUserId() {
+        return user != null ? user.getId() : null;
+    }
 }

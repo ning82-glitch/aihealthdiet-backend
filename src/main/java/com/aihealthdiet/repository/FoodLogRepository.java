@@ -32,4 +32,5 @@ public interface FoodLogRepository extends JpaRepository<FoodLog, Long> {
                                            @Param("startDate") LocalDateTime startDate,
                                            @Param("endDate") LocalDateTime endDate);
 
+    List<FoodLog> findByUserIdAndEatTimeBetween(Long userId, LocalDateTime startOfDay, LocalDateTime endOfDay);
 }
