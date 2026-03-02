@@ -12,25 +12,33 @@ import java.util.List;
 
 @Repository
 public interface FoodLogRepository extends JpaRepository<FoodLog, Long> {
-    List<FoodLog> findByUserId(Long userId);
 
-    // 查询用户某一天的饮食记录
+    // 1. 使用标准命名规则 - 保留这个
+    List<FoodLog> findByUser_Id(Long userId);
+
+
+    // 2. 查询用户某一天的饮食记录
     @Query("SELECT f FROM FoodLog f WHERE f.user.id = :userId AND DATE(f.eatTime) = :date")
-    List<FoodLog> findByUserIdAndDate(Long userId, LocalDate date);
+    List<FoodLog> findByUserIdAndDate(@Param("userId") Long userId, @Param("date") LocalDate date);
 
-    // 查询用户最近7天的饮食记录
+    // 3. 查询用户最近7天的饮食记录
     @Query("SELECT f FROM FoodLog f WHERE f.user.id = :userId AND f.eatTime >= :startDate")
-    List<FoodLog> findRecentByUserId(Long userId, LocalDate startDate);
+    List<FoodLog> findRecentByUserId(@Param("userId") Long userId, @Param("startDate") LocalDate startDate);
 
-    // 统计用户某天的总热量
+    // 4. 统计用户某天的总热量
     @Query("SELECT COALESCE(SUM(f.calories), 0) FROM FoodLog f WHERE f.user.id = :userId AND DATE(f.eatTime) = :date")
-    Double sumCaloriesByUserIdAndDate(Long userId, LocalDate date);
+    Double sumCaloriesByUserIdAndDate(@Param("userId") Long userId, @Param("date") LocalDate date);
 
-    // 根据用户ID和日期范围查询饮食记录
+    // 5. 根据用户ID和日期范围查询饮食记录
     @Query("SELECT f FROM FoodLog f WHERE f.user.id = :userId AND f.eatTime BETWEEN :startDate AND :endDate ORDER BY f.eatTime DESC")
     List<FoodLog> findByUserIdAndDateRange(@Param("userId") Long userId,
                                            @Param("startDate") LocalDateTime startDate,
                                            @Param("endDate") LocalDateTime endDate);
 
-    List<FoodLog> findByUserIdAndEatTimeBetween(Long userId, LocalDateTime startOfDay, LocalDateTime endOfDay);
+    // 6. 用于今日查询
+    @Query("SELECT f FROM FoodLog f WHERE f.user.id = :userId AND f.eatTime BETWEEN :startDate AND :endDate ORDER BY f.eatTime DESC")
+    List<FoodLog> findByUserIdAndEatTimeBetween(@Param("userId") Long userId,
+                                                @Param("startDate") LocalDateTime startDate,
+                                                @Param("endDate") LocalDateTime endDate);
+
 }

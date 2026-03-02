@@ -37,5 +37,6 @@ public abstract class AbstractFoodLogService {
         return foodLogRepository.findByUserIdAndDateRange(userId, startDate, endDate);
     }
 
-    public abstract List<FoodLog> getRecentFoodLogsByUser(Long userId, int recentDays);
+    // 修改这里：将方法名改为 getRecentFoodLogs，与 FoodLogServiceImpl 保持一致
+    public abstract List<FoodLog> getRecentFoodLogs(Long userId, int days);
 }
