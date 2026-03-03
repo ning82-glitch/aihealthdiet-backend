@@ -70,7 +70,7 @@ public class FoodLogServiceImpl extends AbstractFoodLogService implements FoodLo
         LocalDateTime endOfDay = today.atTime(23, 59, 59);
 
         // 注意方法名：findByUserIdAndEatTimeBetween
-        return foodLogRepository.findByUserIdAndEatTimeBetween(userId, startOfDay, endOfDay);
+        return foodLogRepository.findByUser_IdAndEatTimeBetween(userId, startOfDay, endOfDay);
     }
 
     /**
@@ -89,7 +89,7 @@ public class FoodLogServiceImpl extends AbstractFoodLogService implements FoodLo
         LocalDateTime startDate = endDate.minusDays(days);
 
         // 使用已有的 findByUserIdAndDateRange 方法
-        return foodLogRepository.findByUserIdAndDateRange(userId, startDate, endDate);
+        return foodLogRepository.findByUser_IdAndEatTimeBetween(userId, startDate, endDate);
     }
 
     /**
@@ -100,7 +100,7 @@ public class FoodLogServiceImpl extends AbstractFoodLogService implements FoodLo
         if (userId == null || userId <= 0) {
             throw new IllegalArgumentException("用户ID不能为空且必须大于0");
         }
-        return foodLogRepository.findByUserIdAndDateRange(userId, startDate, endDate);
+        return foodLogRepository.findByUser_IdAndEatTimeBetween(userId, startDate, endDate);
     }
 
     /**
@@ -131,7 +131,7 @@ public class FoodLogServiceImpl extends AbstractFoodLogService implements FoodLo
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = today.atTime(23, 59, 59);
 
-        List<FoodLog> todayLogs = foodLogRepository.findByUserIdAndEatTimeBetween(userId, startOfDay, endOfDay);
+        List<FoodLog> todayLogs = foodLogRepository.findByUser_IdAndEatTimeBetween(userId, startOfDay, endOfDay);
 
         double totalCalories = todayLogs.stream()
                 .mapToDouble(log -> log.getCalories() != null ? log.getCalories() : 0.0)

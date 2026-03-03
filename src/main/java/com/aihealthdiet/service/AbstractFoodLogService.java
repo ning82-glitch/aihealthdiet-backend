@@ -24,7 +24,7 @@ public abstract class AbstractFoodLogService {
         LocalDate today = LocalDate.now();
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = today.atTime(23, 59, 59);
-        return foodLogRepository.findByUserIdAndEatTimeBetween(userId, startOfDay, endOfDay);
+        return foodLogRepository.findByUser_IdAndEatTimeBetween(userId, startOfDay, endOfDay);
     }
 
     // 公共方法：查询用户近N天饮食记录（供子类复用或修改）
